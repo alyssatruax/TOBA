@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+This page will allow the user to register for online banking services.
+It should have a form with a submit button that collects the following information.
+i.	FirstName
+ii.	LastName
+iii.	Phone
+iv.	Address
+v.	City
+vi.	State
+vii.	Zipcode
+viii.	Email
+
+-->
+<html>
+    <head>
+        <title>Register | Titan Online Banking Application</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h1>New Customer Registration</h1>
+        </header>
+        <nav>
+            <a href="index.html">Home</a><br>
+            <a href="login.html">Already a customer? Log in here.</a>
+        </nav>
+        <form action="new_customer" method="post">
+            <label>First Name:</label>
+            <input type="text" name="firstName"><br>
+            <label>Last Name:</label>
+            <input type="text" name="lastName"><br>
+            <label>Phone:</label>
+            <input type="text" name="phone"><br>
+            <label>Address:</label>
+            <input type="text" name="address"><br>
+            <label>City:</label>
+            <input type="text" name="city"><br>
+            <label>State:</label>
+            <input type="text" name="state"><br>
+            <label>Zipcode:</label>
+            <input type="text" name="zipcode"><br>
+            <label>Email:</label>
+            <input type="email" name="email"><br>
+            <input type="submit" value="Create account">
+        </form>
+    </body>
+</html>
