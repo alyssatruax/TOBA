@@ -21,8 +21,10 @@ public class NewCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Set content type
         response.setContentType("text/html;charset=UTF-8");
         
+        // Get variables from form
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String phone = request.getParameter("phone");
@@ -31,14 +33,21 @@ public class NewCustomerServlet extends HttpServlet {
         String state = request.getParameter("state");
         String zipcode = request.getParameter("zipcode");
         String email = request.getParameter("email");
+        
+        // Set default url destination
         String url = "/success.html";
         
+        // If any field is empty, print error message
         if (firstName.length() == 0 || lastName.length() == 0
                 || phone.length() == 0 || address.length() == 0 
                 || city.length() == 0 || state.length() == 0 
                 || zipcode.length() == 0 || email.length() == 0) {
+            
+            // Set error message
             String errorMessage = "Please fill out all fields :)";
             PrintWriter out = response.getWriter();
+            
+            // Print error message
             try {
                 out.println("<p>" + errorMessage + "</p>");
             }
@@ -46,6 +55,7 @@ public class NewCustomerServlet extends HttpServlet {
                 out.close();
             }
         }
+        // If all fields are filled, forward to default url
         else {
             getServletContext().getRequestDispatcher(url).forward(request, response);
         }

@@ -19,17 +19,23 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        
+        // Set content type
         response.setContentType("text/html;charset=UTF-8");
         
+        // Get variables from form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        
+        // Set default url destination
         String url = "/login_failure.html";
         
         if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
         {
+            // Set url destination to account activity page if username/pw correct
             url = "/account_activity.html";
         }
+        
+        // Forward to url
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
