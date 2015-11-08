@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <!--
 This page will be used to display the customer account information.
-Just add a header for now.
+
+Use a JSTL if statement.
+If the User object is in the session and not null,
+display a welcome message containing their first name and last name in the page.
+If it does not exist, display a "Not logged in" message on the page.
 -->
 <html>
     <head>
@@ -13,5 +17,10 @@ Just add a header for now.
         <header>
             <h1>Account Activity</h1>
         </header>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <c: if blahhhhh>
+    </c:if>
+    <c: if blahhhhh>
+    </c:if>
     </body>
 </html>

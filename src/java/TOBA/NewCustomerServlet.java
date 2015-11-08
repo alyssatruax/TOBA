@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class NewCustomerServlet extends HttpServlet {
 
@@ -34,8 +35,16 @@ public class NewCustomerServlet extends HttpServlet {
         String zipcode = request.getParameter("zipcode");
         String email = request.getParameter("email");
         
+        // Create username and temporary password
+        String username = lastName + zipcode;
+        String password = "welcome1";
+        
+        // Store data in User object
+        User user = new User(firstName, lastName, phone, address, city, 
+            state, zipcode, email, username, password);
+        
         // Set default url destination
-        String url = "/success.html";
+        String url = "/success.jsp";
         
         // If any field is empty, print error message
         if (firstName.length() == 0 || lastName.length() == 0
@@ -44,7 +53,7 @@ public class NewCustomerServlet extends HttpServlet {
                 || zipcode.length() == 0 || email.length() == 0) {
             
             // Set error message
-            String errorMessage = "Please fill out all fields :)";
+            String errorMessage = "Please go back and fill out all fields";
             PrintWriter out = response.getWriter();
             
             // Print error message
@@ -55,8 +64,15 @@ public class NewCustomerServlet extends HttpServlet {
                 out.close();
             }
         }
-        // If all fields are filled, forward to default url
+        // If all fields are filled, create session and forward to default url
         else {
+            // Create session
+            HttpSession session = request.getSession();
+            
+            // Set user attribute
+            session.setAttribute("user", user);
+            
+            // Forward to URL
             getServletContext().getRequestDispatcher(url).forward(request, response);
         }
     }

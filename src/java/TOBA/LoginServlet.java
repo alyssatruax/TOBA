@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
@@ -31,8 +32,13 @@ public class LoginServlet extends HttpServlet {
         
         if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
         {
+            HttpSession session = request.getSession();
+            
+            User user = (User) session.getAttribute("user");
+            request.setAttribute("user", user);
+            
             // Set url destination to account activity page if username/pw correct
-            url = "/account_activity.html";
+            url = "/account_activity.jsp";
         }
         
         // Forward to url
