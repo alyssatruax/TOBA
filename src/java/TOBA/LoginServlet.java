@@ -35,7 +35,6 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             
             User user = (User) session.getAttribute("user");
-            request.setAttribute("user", user);
             
             // Set url destination to account activity page if username/pw correct
             url = "/account_activity.jsp";

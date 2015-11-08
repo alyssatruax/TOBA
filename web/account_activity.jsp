@@ -11,10 +11,12 @@ If it does not exist, display a "Not logged in" message on the page.
 <c:import url="/header.html" />
 <jsp:useBean id="user" class="TOBA.User" scope="session" />
         <h1>Account Activity</h1>
-    <c:if test="${user != null}">
-        <p>Welcome, ${user.firstName} ${user.lastName} ${user.email} ${user.password}.</p>
-    </c:if>
-    <c:if test="${user == null}">
-        <p>Not logged in</p>
-    </c:if>
+        <c:choose>
+            <c:when test="${user.username != ''}">
+                <p>Welcome, ${user.firstName} ${user.lastName}.</p>
+            </c:when>
+            <c:otherwise>
+                <p>Not logged in</p>
+            </c:otherwise>
+        </c:choose>
 <c:import url="/footer.jsp" />
