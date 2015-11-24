@@ -8,6 +8,11 @@ and display the message on the new_customer.html page
  */
 package TOBA;
 
+import TOBA.data.UserDB;
+import TOBA.business.User;
+import TOBA.data.AccountDB;
+import TOBA.business.Account;
+import TOBA.business.Type;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -43,6 +48,9 @@ public class NewCustomerServlet extends HttpServlet {
         User user = new User(firstName, lastName, phone, address, city, 
             state, zipcode, email, username, password);
         
+        Account savingsAccount = new Account (user, 25.00, Type.SAVINGS);
+        Account checkingAccount = new Account (user, 0, Type.CHECKING);
+        
         // Set default url destination
         String url = "/success.jsp";
         
@@ -71,6 +79,12 @@ public class NewCustomerServlet extends HttpServlet {
             
             // Set user attribute
             session.setAttribute("user", user);
+            UserDB.insert(user);
+            
+            // Set account session attribute?
+            //AccountDB.insert(savingsAccount);
+           // AccountDB.insert(checkingAccount);
+
             
             // Forward to URL
             getServletContext().getRequestDispatcher(url).forward(request, response);

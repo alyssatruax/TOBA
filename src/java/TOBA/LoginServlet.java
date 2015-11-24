@@ -6,8 +6,14 @@ If it is incorrect, it should forward the request to the login_failure.html page
  */
 package TOBA;
 
+import TOBA.business.Account;
+import TOBA.business.User;
+import TOBA.data.AccountDB;
+import TOBA.data.DBUtil;
+import TOBA.data.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +36,16 @@ public class LoginServlet extends HttpServlet {
         // Set default url destination
         String url = "/login_failure.html";
         
-        if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
+        User u = UserDB.selectUser(username);
+        Account a = AccountDB.selectAccount(u.getUserID());
+        
+        //if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
+        if (username.equalsIgnoreCase(u.getUsername()) && password.equals(u.getPassword()))
         {
             HttpSession session = request.getSession();
-            
-            User user = (User) session.getAttribute("user");
+            session.setAttribute("user", u);
+            session.setAttribute("account", a);
+
             
             // Set url destination to account activity page if username/pw correct
             url = "/account_activity.jsp";

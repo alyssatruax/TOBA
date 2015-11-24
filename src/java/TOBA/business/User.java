@@ -3,25 +3,37 @@
 The User Bean should have all the attributes collected from the new customer form.
 Also give it a username and password property.
  */
-package TOBA;
+package TOBA.business;
 
 import java.io.Serializable;
-        
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+//@Table(name = "TOBA.USER")
 public class User implements Serializable {
     
     // Declare variables from new customer form
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long userID;
     private String firstName;
     private String lastName;
     private String phone;
     private String address;
+    private String email;
     private String city;
     private String state;
     private String zipcode;
-    private String email;
     private String username;
     private String password;
     
     public User() {
+        userID = 0;
         firstName = "";
         lastName = "";
         phone = "";
@@ -50,6 +62,14 @@ public class User implements Serializable {
     }
     
     // Getters and setters
+    public long getUserID () {
+        return userID;
+    }
+    
+    public void setUserID (long userID) {
+        this.userID = userID;
+    }
+    
     public String getFirstName () {
         return firstName;
     }
@@ -58,7 +78,7 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
     
-    public String getlastName () {
+    public String getLastName () {
         return lastName;
     }
     

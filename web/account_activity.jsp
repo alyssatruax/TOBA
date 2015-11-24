@@ -9,11 +9,12 @@ If it does not exist, display a "Not logged in" message on the page.
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/header.html" />
-<jsp:useBean id="user" class="TOBA.User" scope="session" />
+<jsp:useBean id="user" class="TOBA.business.User" scope="session" />
         <h1>Account Activity</h1>
         <c:choose>
             <c:when test="${user.username != ''}">
                 <p>Welcome, ${user.firstName} ${user.lastName}.</p>
+                <p>Balance: ${savingsAccount.balance}</p>
             </c:when>
             <c:otherwise>
                 <p>Not logged in</p>

@@ -4,7 +4,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/header.html" />
-    <jsp:useBean id="user" class="TOBA.User" scope="session" />
+    <jsp:useBean id="user" class="TOBA.business.User" scope="session" />
     <header>
         <h1>Thank you! Your account has been successfully created.</h1>
     </header>

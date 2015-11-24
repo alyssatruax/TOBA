@@ -3,6 +3,8 @@
  */
 package TOBA;
 
+import TOBA.data.UserDB;
+import TOBA.business.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,8 +24,8 @@ public class ResetPasswordServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // Get variables from form
-        String username = request.getParameter("username");
-        String currentPassword = request.getParameter("currentPassword");
+        //String username = request.getParameter("username");
+        //String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
         
         // Get a session object
@@ -35,6 +37,10 @@ public class ResetPasswordServlet extends HttpServlet {
         // Set new password for user object
         session.setAttribute("user", user);
         user.setPassword(newPassword);
+        
+
+        
+        UserDB.update(user);
         
         // Set default url destination
         String url = "/account_activity.jsp";
