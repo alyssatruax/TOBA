@@ -37,14 +37,16 @@ public class LoginServlet extends HttpServlet {
         String url = "/login_failure.html";
         
         User u = UserDB.selectUser(username);
-        Account a = AccountDB.selectAccount(u.getUserID());
+        
+        // Error :(
+        //Account a = AccountDB.selectAccount(u.getUserID());
         
         //if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
         if (username.equalsIgnoreCase(u.getUsername()) && password.equals(u.getPassword()))
         {
             HttpSession session = request.getSession();
             session.setAttribute("user", u);
-            session.setAttribute("account", a);
+            //session.setAttribute("account", a);
 
             
             // Set url destination to account activity page if username/pw correct

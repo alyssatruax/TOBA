@@ -14,7 +14,9 @@ If it does not exist, display a "Not logged in" message on the page.
         <c:choose>
             <c:when test="${user.username != ''}">
                 <p>Welcome, ${user.firstName} ${user.lastName}.</p>
-                <p>Balance: ${savingsAccount.balance}</p>
+                <p>Savings Balance: ${savingsAccount.balance}</p>
+                <p>Checking Balance: ${checkingAccount.balance}</p>
+                <a href="transaction.jsp">Click here to transfer funds</a>
             </c:when>
             <c:otherwise>
                 <p>Not logged in</p>

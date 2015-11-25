@@ -3,6 +3,7 @@
   <persistence-unit name="TOBAPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>TOBA.business.User</class>
+    <class>TOBA.business.Account</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.1.194/TOBA"/>
