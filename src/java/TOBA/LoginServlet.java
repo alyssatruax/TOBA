@@ -13,6 +13,7 @@ import TOBA.data.DBUtil;
 import TOBA.data.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,14 +41,15 @@ public class LoginServlet extends HttpServlet {
         
         // Error :(
         //Account a = AccountDB.selectAccount(u.getUserID());
+        // Throws exception state field path a.userid cannot be resolved to a valid type
+        //List accounts = AccountDB.selectAccount(u.getUserID());
         
         //if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
         if (username.equalsIgnoreCase(u.getUsername()) && password.equals(u.getPassword()))
         {
             HttpSession session = request.getSession();
             session.setAttribute("user", u);
-            //session.setAttribute("account", a);
-
+            //session.setAttribute("account", accounts);
             
             // Set url destination to account activity page if username/pw correct
             url = "/account_activity.jsp";

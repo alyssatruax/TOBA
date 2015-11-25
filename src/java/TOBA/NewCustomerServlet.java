@@ -82,10 +82,9 @@ public class NewCustomerServlet extends HttpServlet {
             UserDB.insert(user);
             
             // Set account session attribute?
-            AccountDB.insert(savingsAccount);
-            AccountDB.insert(checkingAccount);
+            //AccountDB.insert(savingsAccount);
+            //AccountDB.insert(checkingAccount);
 
-            
             // Forward to URL
             getServletContext().getRequestDispatcher(url).forward(request, response);
         }

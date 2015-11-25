@@ -5,7 +5,10 @@
  */
 package TOBA;
 
+import TOBA.business.Account;
 import TOBA.business.Transaction;
+import TOBA.business.User;
+import TOBA.data.AccountDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,17 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TransactionServlet extends HttpServlet {
 
-
-  
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        User user = (User)request.getSession().getAttribute("user");
+        //Account savingsAccount = (Account)request.getSession().getAttribute("account");
 
         // Set content type
         response.setContentType("text/html;charset=UTF-8");
@@ -34,15 +32,23 @@ public class TransactionServlet extends HttpServlet {
         // Get variables from form
         String fromAccount = request.getParameter("fromAccount");
         String toAccount = request.getParameter("toAccount");
-        double amount = request.getParameter("amount");
+        String amount = request.getParameter("amount");
 
-        // Store data in User object
-        Transaction transaction = new Transaction(amount, user, );
+        // Store data in Transaction object
+        // Does not take strings
+        //Transaction transaction = new Transaction(amount, fromAccount, toAccount);
+        //AccountDB.update(savingsAccount);
+        //AccountDB.update(checkingAccount);
         
         // Set default url destination
         String url = "/account_activity.jsp";
         
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
 
 }

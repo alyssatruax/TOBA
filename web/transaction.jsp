@@ -15,7 +15,7 @@
                 <p>Savings Balance: ${savingsAccount.balance}</p>
                 <p>Checking Balance: ${checkingAccount.balance}</p><br>
                 <p>Make a transaction: </p>
-                <form action="create_transaction" method="post">
+                <form action="transaction" method="post">
                 <p>From account:</p>
                 <label>Savings:</label>
                 <input type="radio" name="fromAccount" value="savings">
@@ -27,7 +27,7 @@
                 <label>Checking:</label>
                 <input type="radio" name="toAccount" value="checking"><br><br>
                 <label>Amount:</label>
-                <input type="text" name="amount" required><br><br>
+                <input type="number" name="amount" required><br><br>
                 <input type="submit" value="Transfer Funds">
         </form>
             </c:when>

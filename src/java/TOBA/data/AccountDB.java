@@ -7,6 +7,7 @@ package TOBA.data;
 
 import TOBA.business.Account;
 import TOBA.business.User;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -32,6 +33,7 @@ public class AccountDB {
         }
     }
     
+    /*
         public static Account selectAccount(long userID) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM Account a " +
@@ -52,8 +54,44 @@ public class AccountDB {
             em.close();
         }
         return account;
+    }*/
+    
+    public static List<Account> selectAccount(long userID) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT a FROM Account a " +
+                "WHERE a.userid = " + userID;
+        
+        TypedQuery<Account> q = em.createQuery(qString, Account.class);
+        
+        List<Account> accounts;
+        
+        try {
+            accounts = q.getResultList();
+            if (accounts == null || accounts.isEmpty())
+                accounts = null;
+        }
+        finally {
+            em.close();
+        }
+        return accounts;
     }
     
-    
+        public static void update (Account account) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        
+        try {
+            em.merge(account);
+            trans.commit();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        }
+        finally {
+            em.close();
+        }
+    }
     
 }

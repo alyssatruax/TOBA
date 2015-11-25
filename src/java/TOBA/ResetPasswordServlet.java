@@ -38,8 +38,6 @@ public class ResetPasswordServlet extends HttpServlet {
         session.setAttribute("user", user);
         user.setPassword(newPassword);
         
-
-        
         UserDB.update(user);
         
         // Set default url destination

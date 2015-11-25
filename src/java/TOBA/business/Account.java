@@ -32,7 +32,9 @@ public class Account implements Serializable{
     @ManyToOne
     @JoinColumn(name="userid")
     private User user;
-  
+    
+    @OneToMany (fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Account> accounts;
    
     public Account () {
         type = null;
