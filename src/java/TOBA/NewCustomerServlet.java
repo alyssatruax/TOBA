@@ -16,6 +16,7 @@ import TOBA.business.Type;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,8 +49,8 @@ public class NewCustomerServlet extends HttpServlet {
         User user = new User(firstName, lastName, phone, address, city, 
             state, zipcode, email, username, password);
         
-        Account savingsAccount = new Account (user, 25.00, Type.SAVINGS);
-        Account checkingAccount = new Account (user, 0, Type.CHECKING);
+        //Account savingsAccount = new Account (user, 25.00, Type.SAVINGS);
+        //Account checkingAccount = new Account (user, 0, Type.CHECKING);
         
         // Set default url destination
         String url = "/success.jsp";
@@ -80,6 +81,12 @@ public class NewCustomerServlet extends HttpServlet {
             // Set user attribute
             session.setAttribute("user", user);
             UserDB.insert(user);
+            
+            // add a cookie that stores the user's email to browser
+            Cookie c = new Cookie("emailCookie", email);
+            c.setMaxAge(60 * 60 * 24 * 365 * 2); // set age to 2 years
+            c.setPath("/");                      // allow entire app to access it
+            response.addCookie(c);
             
             // Set account session attribute?
             //AccountDB.insert(savingsAccount);

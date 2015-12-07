@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <security-role>
+        <description>admin</description>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Protected Area</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/admin/login.html</form-login-page>
+            <form-error-page>/admin/login_error.html</form-error-page>
+        </form-login-config>
+    </login-config>
+    <welcome-file-list>
+        <welcome-file>reports.jsp</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>TOBA.LoginServlet</servlet-class>
@@ -7,6 +33,10 @@
     <servlet>
         <servlet-name>NewCustomerServlet</servlet-name>
         <servlet-class>TOBA.NewCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportsServlet</servlet-name>
+        <servlet-class>TOBA.ReportsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TransactionServlet</servlet-name>
@@ -25,6 +55,10 @@
         <url-pattern>/new_customer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ReportsServlet</servlet-name>
+        <url-pattern>/reports</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>TransactionServlet</servlet-name>
         <url-pattern>/transaction</url-pattern>
     </servlet-mapping>
@@ -40,6 +74,17 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/password_reset</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>LoginRequestFilter</filter-name>
+        <filter-class>TOBA.filters.LoginRequestFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginRequestFilter</filter-name>
+        <servlet-name>LoginServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    
     <session-config>
         <session-timeout>
             30

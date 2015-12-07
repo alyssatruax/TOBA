@@ -10,9 +10,11 @@ import TOBA.business.Account;
 import TOBA.business.User;
 import TOBA.data.AccountDB;
 import TOBA.data.DBUtil;
+import TOBA.data.PasswordUtil;
 import TOBA.data.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -38,14 +40,34 @@ public class LoginServlet extends HttpServlet {
         String url = "/login_failure.html";
         
         User u = UserDB.selectUser(username);
+
+        //String salt = u.getSalt();
+        //String saltedAndHashedPassword = u.getSaltedAndHashedPassword();
+        
+                // hash and salt password
+        String hashedPassword;
+        String salt = "";
+        String saltedAndHashedPassword;
+        try {
+            hashedPassword = PasswordUtil.hashPassword(password);
+            salt = u.getSalt();
+            saltedAndHashedPassword = PasswordUtil.hashPassword(password + salt);                    
+            
+        } catch (NoSuchAlgorithmException ex) {
+            hashedPassword = ex.getMessage();
+            saltedAndHashedPassword = ex.getMessage();
+        }
+        request.setAttribute("hashedPassword", hashedPassword);
+        request.setAttribute("salt", salt);
+        request.setAttribute("saltedAndHashedPassword", saltedAndHashedPassword);
         
         // Error :(
         //Account a = AccountDB.selectAccount(u.getUserID());
         // Throws exception state field path a.userid cannot be resolved to a valid type
-        //List accounts = AccountDB.selectAccount(u.getUserID());
+        //Account account = AccountDB.selectAccount(u.getUserID(), );
         
         //if (username.equalsIgnoreCase("jsmith@toba.com") && password.equals("letmein"))
-        if (username.equalsIgnoreCase(u.getUsername()) && password.equals(u.getPassword()))
+        if (username.equalsIgnoreCase(u.getUsername()) && saltedAndHashedPassword.equals(u.getSaltedAndHashedPassword()))
         {
             HttpSession session = request.getSession();
             session.setAttribute("user", u);

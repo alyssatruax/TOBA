@@ -7,4 +7,8 @@
     MaxActive="100" maxIdle="30" maxWait="10000"
     logAbandoned="true" removeAbandoned="true"
     removeAbandonedTimeout="60" type="javax.sql.DataSource" />
+
+<Realm className="org.apache.catalina.realm.DataSourceRealm" debug="99" dataSourceName="jdbc/TOBA" 
+    localDataSource="true" userTable="UserPass" userNameCol="Username" userCredCol="Password" 
+    userRoleTable="UserRole" roleNameCol="Rolename" />
 </Context>

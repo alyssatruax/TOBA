@@ -5,7 +5,9 @@ Also give it a username and password property.
  */
 package TOBA.business;
 
+import TOBA.data.PasswordUtil;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +33,8 @@ public class User implements Serializable {
     private String zipcode;
     private String username;
     private String password;
+    private String saltedAndHashedPassword;
+    private String salt;
     
     public User() {
         userID = 0;
@@ -44,6 +48,9 @@ public class User implements Serializable {
         email = "";
         username = "";
         password = "";
+        saltedAndHashedPassword = "";
+        salt = "";
+        
     }
     
     public User (String firstName, String lastName, String phone,
@@ -59,6 +66,12 @@ public class User implements Serializable {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.salt = PasswordUtil.getSalt();
+        try {
+            this.saltedAndHashedPassword = PasswordUtil.hashPassword(this.password + this.salt);                   
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        } 
     }
     
     // Getters and setters
@@ -149,4 +162,13 @@ public class User implements Serializable {
     public void setPassword (String password) {
         this.password = password;
     }
+    
+    public String getSaltedAndHashedPassword () {
+        return saltedAndHashedPassword;
+    }
+    
+    public String getSalt () {
+        return salt;
+    }
+
 }

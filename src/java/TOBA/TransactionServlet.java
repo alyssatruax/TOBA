@@ -34,10 +34,12 @@ public class TransactionServlet extends HttpServlet {
         String toAccount = request.getParameter("toAccount");
         String amount = request.getParameter("amount");
 
+        //Account savingsAccount = new Account(user, )
+        
         // Store data in Transaction object
         // Does not take strings
-        //Transaction transaction = new Transaction(amount, fromAccount, toAccount);
-        //AccountDB.update(savingsAccount);
+       // Transaction transaction = new Transaction(amount, fromAccount, toAccount);
+       // AccountDB.update(savingsAccount);
         //AccountDB.update(checkingAccount);
         
         // Set default url destination
